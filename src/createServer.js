@@ -26,20 +26,18 @@ function createServer() {
         targetCase,
       );
 
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
+      const payload = JSON.stringify({
+        originalCase,
+        targetCase,
+        convertedText,
+        originalText,
+      });
 
-      res.end(
-        JSON.stringify({
-          originalCase,
-          targetCase,
-          convertedText,
-          originalText,
-        }),
-      );
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+
+      res.end(payload);
     } catch (error) {
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 400;
+      res.writeHead(400, { 'Content-Type': 'application/json' });
 
       res.end(
         JSON.stringify({
